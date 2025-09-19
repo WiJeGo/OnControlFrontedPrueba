@@ -48,8 +48,8 @@ export function RegisterForm({ onRegister, onSwitchToLogin }: RegisterFormProps)
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <div className="mx-auto w-16 h-16 bg-[#00796B] rounded-full flex items-center justify-center mb-4">
-            <User className="h-8 w-8 text-white" />
+          <div className="mx-auto w-20 h-20 mb-4 flex items-center justify-center">
+              <img src="/logoOnControl.png" alt="OnControl Logo" className="h-16 w-auto" />
           </div>
           <CardTitle className="text-2xl font-bold text-[#00796B]">OnControl</CardTitle>
           <p className="text-gray-600">Registro de Oncólogo</p>
