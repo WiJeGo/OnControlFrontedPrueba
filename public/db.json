@@ -1,0 +1,577 @@
+{
+  "doctor": {
+    "name": "Dr. María González",
+    "specialty": "Medicina Interna",
+    "license": "12345678",
+    "email": "maria.gonzalez@hospital.com"
+  },
+  "patients": [
+    {
+      "id": 1,
+      "name": "Juan Pérez",
+      "age": 45,
+      "gender": "Masculino",
+      "phone": "+1234567890",
+      "email": "juan.perez@email.com",
+      "bloodType": "O+",
+      "allergies": ["Penicilina", "Mariscos"],
+      "lastVisit": "2024-01-15",
+      "status": "Activo",
+      "medicalHistory": [
+        {
+          "date": "2024-01-15",
+          "diagnosis": "Hipertensión arterial",
+          "treatment": "Enalapril 10mg",
+          "notes": "Paciente responde bien al tratamiento"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "María García",
+      "age": 32,
+      "gender": "Femenino",
+      "phone": "+1234567891",
+      "email": "maria.garcia@email.com",
+      "bloodType": "A+",
+      "allergies": [],
+      "lastVisit": "2024-01-10",
+      "status": "Activo",
+      "medicalHistory": [
+        {
+          "date": "2024-01-10",
+          "diagnosis": "Diabetes tipo 2",
+          "treatment": "Metformina 500mg",
+          "notes": "Control glucémico estable"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Carlos López",
+      "age": 28,
+      "gender": "Masculino",
+      "phone": "+1234567892",
+      "email": "carlos.lopez@email.com",
+      "bloodType": "B+",
+      "allergies": ["Aspirina"],
+      "lastVisit": "2024-01-12",
+      "status": "Activo",
+      "medicalHistory": [
+        {
+          "date": "2024-01-12",
+          "diagnosis": "Asma bronquial",
+          "treatment": "Salbutamol inhalador",
+          "notes": "Crisis controladas con medicación"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Ana Martínez",
+      "age": 55,
+      "gender": "Femenino",
+      "phone": "+1234567893",
+      "email": "ana.martinez@email.com",
+      "bloodType": "AB+",
+      "allergies": ["Sulfonamidas"],
+      "lastVisit": "2024-01-18",
+      "status": "Activo",
+      "medicalHistory": [
+        {
+          "date": "2024-01-18",
+          "diagnosis": "Artritis reumatoide",
+          "treatment": "Metotrexato 15mg",
+          "notes": "Respuesta favorable al tratamiento inicial"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Roberto Silva",
+      "age": 38,
+      "gender": "Masculino",
+      "phone": "+1234567894",
+      "email": "roberto.silva@email.com",
+      "bloodType": "O-",
+      "allergies": ["Ibuprofeno", "Látex"],
+      "lastVisit": "2024-01-16",
+      "status": "Activo",
+      "medicalHistory": [
+        {
+          "date": "2024-01-16",
+          "diagnosis": "Gastritis crónica",
+          "treatment": "Omeprazol 20mg",
+          "notes": "Síntomas mejorando con tratamiento"
+        }
+      ]
+    }
+  ],
+  "appointments": [
+    {
+      "id": 1,
+      "patientId": 1,
+      "patientName": "Juan Pérez",
+      "date": "2024-01-20",
+      "time": "10:00",
+      "type": "Consulta",
+      "status": "Programada",
+      "notes": "Control de presión arterial"
+    },
+    {
+      "id": 2,
+      "patientId": 2,
+      "patientName": "María García",
+      "date": "2024-01-20",
+      "time": "10:30",
+      "type": "Seguimiento",
+      "status": "Programada",
+      "notes": "Control glucémico"
+    },
+    {
+      "id": 3,
+      "patientId": 3,
+      "patientName": "Carlos López",
+      "date": "2024-01-20",
+      "time": "11:00",
+      "type": "Consulta",
+      "status": "Programada",
+      "notes": "Revisión de tratamiento"
+    },
+    {
+      "id": 4,
+      "patientId": 4,
+      "patientName": "Ana Martínez",
+      "date": "2024-01-21",
+      "time": "09:30",
+      "type": "Seguimiento",
+      "status": "Programada",
+      "notes": "Control de artritis reumatoide"
+    },
+    {
+      "id": 5,
+      "patientId": 5,
+      "patientName": "Roberto Silva",
+      "date": "2024-01-21",
+      "time": "11:30",
+      "type": "Consulta",
+      "status": "Programada",
+      "notes": "Evaluación de gastritis"
+    }
+  ],
+  "treatments": [
+    {
+      "patient": "Ana García",
+      "treatment": "Diabetes Tipo 2",
+      "status": "En progreso",
+      "priority": "medium",
+      "nextVisit": "25/03/2024",
+      "startDate": "15/01/2024",
+      "duration": "6 meses",
+      "medications": [
+        {
+          "name": "Metformina 850mg",
+          "dosage": "850mg",
+          "frequency": "2 veces/día",
+          "status": "Activo"
+        },
+        {
+          "name": "Insulina Lantus",
+          "dosage": "20 unidades",
+          "frequency": "1 vez/día",
+          "status": "Activo"
+        },
+        {
+          "name": "Atorvastatina 20mg",
+          "dosage": "20mg",
+          "frequency": "1 vez/día",
+          "status": "Activo"
+        }
+      ],
+      "controls": [
+        {
+          "test": "Glucosa en ayunas",
+          "frequency": "Semanal",
+          "nextDate": "25/03/2024"
+        },
+        {
+          "test": "HbA1c",
+          "frequency": "Trimestral",
+          "nextDate": "15/04/2024"
+        },
+        {
+          "test": "Perfil lipídico",
+          "frequency": "Semestral",
+          "nextDate": "15/07/2024"
+        }
+      ],
+      "timeline": [
+        {
+          "date": "15/03/2024",
+          "event": "Consulta de seguimiento",
+          "details": "HbA1c: 6.8% - Mejoría notable. Continuar tratamiento actual.",
+          "type": "visit",
+          "status": "completed"
+        },
+        {
+          "date": "01/03/2024",
+          "event": "Ajuste de medicación",
+          "details": "Reducción de dosis de Metformina por efectos secundarios.",
+          "type": "medication",
+          "status": "completed"
+        },
+        {
+          "date": "15/02/2024",
+          "event": "Análisis de laboratorio",
+          "details": "Glucosa: 145 mg/dl, HbA1c: 7.2% - Ligera mejoría.",
+          "type": "lab",
+          "status": "completed"
+        },
+        {
+          "date": "25/03/2024",
+          "event": "Próxima consulta programada",
+          "details": "Control rutinario y evaluación de adherencia.",
+          "type": "visit",
+          "status": "scheduled"
+        }
+      ],
+      "symptoms": [
+        {
+          "name": "Polidipsia",
+          "description": "Sed excesiva, especialmente durante las noches",
+          "severity": "medium",
+          "frequency": "Diaria",
+          "reportedDate": "10/03/2024"
+        },
+        {
+          "name": "Fatiga",
+          "description": "Cansancio generalizado después de las comidas",
+          "severity": "low",
+          "frequency": "Ocasional",
+          "reportedDate": "08/03/2024"
+        },
+        {
+          "name": "Visión borrosa",
+          "description": "Dificultad para enfocar objetos lejanos",
+          "severity": "high",
+          "frequency": "Intermitente",
+          "reportedDate": "12/03/2024"
+        }
+      ]
+    },
+    {
+      "patient": "Juan Pérez",
+      "treatment": "Quimioterapia",
+      "status": "Crítico",
+      "priority": "high",
+      "nextVisit": "20/03/2024",
+      "startDate": "01/02/2024",
+      "duration": "4 meses",
+      "medications": [
+        {
+          "name": "Cisplatino",
+          "dosage": "75mg/m²",
+          "frequency": "Cada 3 semanas",
+          "status": "Activo"
+        },
+        {
+          "name": "Ondansetrón",
+          "dosage": "8mg",
+          "frequency": "Según necesidad",
+          "status": "Activo"
+        }
+      ],
+      "controls": [
+        {
+          "test": "Hemograma completo",
+          "frequency": "Semanal",
+          "nextDate": "20/03/2024"
+        },
+        {
+          "test": "Función renal",
+          "frequency": "Quincenal",
+          "nextDate": "22/03/2024"
+        }
+      ],
+      "timeline": [
+        {
+          "date": "01/02/2024",
+          "event": "Inicio de quimioterapia",
+          "details": "Primera sesión de cisplatino. Tolerancia aceptable.",
+          "type": "medication",
+          "status": "completed"
+        },
+        {
+          "date": "22/02/2024",
+          "event": "Segunda sesión",
+          "details": "Náuseas controladas con ondansetrón.",
+          "type": "medication",
+          "status": "completed"
+        }
+      ],
+      "symptoms": [
+        {
+          "name": "Náuseas",
+          "description": "Náuseas intensas post-quimioterapia",
+          "severity": "high",
+          "frequency": "Después de cada sesión",
+          "reportedDate": "15/03/2024"
+        },
+        {
+          "name": "Pérdida de apetito",
+          "description": "Disminución significativa del apetito",
+          "severity": "medium",
+          "frequency": "Diaria",
+          "reportedDate": "10/03/2024"
+        }
+      ]
+    },
+    {
+      "patient": "María Rodríguez",
+      "treatment": "Fisioterapia",
+      "status": "Casi completo",
+      "priority": "low",
+      "nextVisit": "30/03/2024",
+      "startDate": "01/01/2024",
+      "duration": "3 meses",
+      "medications": [
+        {
+          "name": "Ibuprofeno 400mg",
+          "dosage": "400mg",
+          "frequency": "Cada 8 horas",
+          "status": "Activo"
+        }
+      ],
+      "controls": [
+        {
+          "test": "Evaluación funcional",
+          "frequency": "Quincenal",
+          "nextDate": "30/03/2024"
+        }
+      ],
+      "timeline": [
+        {
+          "date": "01/01/2024",
+          "event": "Inicio de fisioterapia",
+          "details": "Evaluación inicial. Limitación de movimiento 60%.",
+          "type": "visit",
+          "status": "completed"
+        }
+      ],
+      "symptoms": [
+        {
+          "name": "Dolor lumbar",
+          "description": "Dolor en zona lumbar baja, mejora con ejercicio",
+          "severity": "low",
+          "frequency": "Matutina",
+          "reportedDate": "05/03/2024"
+        }
+      ]
+    },
+    {
+      "patient": "Carlos López",
+      "treatment": "Hipertensión",
+      "status": "En progreso",
+      "priority": "medium",
+      "nextVisit": "22/03/2024",
+      "startDate": "15/12/2023",
+      "duration": "Indefinido",
+      "medications": [
+        {
+          "name": "Enalapril 10mg",
+          "dosage": "10mg",
+          "frequency": "1 vez/día",
+          "status": "Activo"
+        }
+      ],
+      "controls": [
+        {
+          "test": "Presión arterial",
+          "frequency": "Semanal",
+          "nextDate": "22/03/2024"
+        }
+      ],
+      "timeline": [
+        {
+          "date": "15/12/2023",
+          "event": "Diagnóstico inicial",
+          "details": "Presión arterial 160/100. Inicio de tratamiento.",
+          "type": "visit",
+          "status": "completed"
+        }
+      ],
+      "symptoms": [
+        {
+          "name": "Cefalea",
+          "description": "Dolor de cabeza matutino ocasional",
+          "severity": "medium",
+          "frequency": "2-3 veces por semana",
+          "reportedDate": "14/03/2024"
+        }
+      ]
+    },
+    {
+      "patient": "Ana Martínez",
+      "treatment": "Artritis reumatoide",
+      "status": "En progreso",
+      "priority": "high",
+      "nextVisit": "25/03/2024",
+      "startDate": "15/01/2024",
+      "duration": "Indefinido",
+      "medications": [
+        {
+          "name": "Metotrexato 15mg",
+          "dosage": "15mg",
+          "frequency": "1 vez/semana",
+          "status": "Activo"
+        }
+      ],
+      "controls": [
+        {
+          "test": "Evaluación funcional",
+          "frequency": "Quincenal",
+          "nextDate": "25/03/2024"
+        }
+      ],
+      "timeline": [
+        {
+          "date": "15/01/2024",
+          "event": "Inicio de tratamiento",
+          "details": "Metotrexato 15mg. Monitorizar respuesta.",
+          "type": "medication",
+          "status": "completed"
+        }
+      ],
+      "symptoms": [
+        {
+          "name": "Inflamación",
+          "description": "Inflamación en articulaciones",
+          "severity": "high",
+          "frequency": "Diaria",
+          "reportedDate": "15/03/2024"
+        }
+      ]
+    },
+    {
+      "patient": "Roberto Silva",
+      "treatment": "Gastritis crónica",
+      "status": "En progreso",
+      "priority": "medium",
+      "nextVisit": "22/03/2024",
+      "startDate": "15/01/2024",
+      "duration": "Indefinido",
+      "medications": [
+        {
+          "name": "Omeprazol 20mg",
+          "dosage": "20mg",
+          "frequency": "1 vez/día",
+          "status": "Activo"
+        }
+      ],
+      "controls": [
+        {
+          "test": "Acidez gástrica",
+          "frequency": "Semanal",
+          "nextDate": "22/03/2024"
+        }
+      ],
+      "timeline": [
+        {
+          "date": "15/01/2024",
+          "event": "Inicio de tratamiento",
+          "details": "Omeprazol 20mg. Evaluar efectividad.",
+          "type": "medication",
+          "status": "completed"
+        }
+      ],
+      "symptoms": [
+        {
+          "name": "Dolor abdominal",
+          "description": "Dolor crónico en zona epigástrica",
+          "severity": "medium",
+          "frequency": "Diaria",
+          "reportedDate": "15/03/2024"
+        }
+      ]
+    }
+  ],
+  "vitalSigns": [
+    {
+      "type": "Temperatura",
+      "value": "36.5°C",
+      "status": "Normal",
+      "color": "success"
+    },
+    {
+      "type": "Oxígeno en Sangre",
+      "value": "98%",
+      "status": "Normal",
+      "color": "success"
+    },
+    {
+      "type": "Ritmo Cardíaco",
+      "value": "85 bpm",
+      "status": "Elevado",
+      "color": "warning"
+    }
+  ],
+  "notifications": [
+    {
+      "id": 1,
+      "type": "warning",
+      "message": "Paciente Juan Pérez requiere seguimiento urgente",
+      "time": "2 min",
+      "read": false
+    },
+    {
+      "id": 2,
+      "type": "info",
+      "message": "Nuevos resultados de laboratorio disponibles",
+      "time": "15 min",
+      "read": false
+    },
+    {
+      "id": 3,
+      "type": "success",
+      "message": "Tratamiento de María García completado exitosamente",
+      "time": "1 hora",
+      "read": true
+    },
+    {
+      "id": 4,
+      "type": "warning",
+      "message": "Paciente Ana Martínez requiere revisión médica",
+      "time": "5 min",
+      "read": false
+    },
+    {
+      "id": 5,
+      "type": "info",
+      "message": "Nuevos resultados de laboratorio disponibles para Roberto Silva",
+      "time": "30 min",
+      "read": false
+    }
+  ],
+  "quickActions": [
+    {
+      "id": 1,
+      "label": "Nuevo Paciente",
+      "icon": "Users"
+    },
+    {
+      "id": 2,
+      "label": "Agendar Cita",
+      "icon": "Calendar"
+    },
+    {
+      "id": 3,
+      "label": "Ver Tratamientos",
+      "icon": "Activity"
+    },
+    {
+      "id": 4,
+      "label": "Ver Notificaciones",
+      "icon": "Bell"
+    }
+  ]
+}
