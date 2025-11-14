@@ -1,16 +1,15 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/src/components/ui/card"
 import { Button } from "@/src/components/ui/button"
 import { Input } from "@/src/components/ui/input"
 import { Label } from "@/src/components/ui/label"
-import { Eye, EyeOff, Mail, Lock } from "lucide-react"
+import { Eye, EyeOff, Mail, Lock, Loader2 } from 'lucide-react'
 
 interface LoginFormProps {
-  onLogin: (email: string, password: string) => void
+  onLogin: (email: string, password: string) => Promise<void>
   onSwitchToRegister: () => void
 }
 
@@ -18,10 +17,23 @@ export function LoginForm({ onLogin, onSwitchToRegister }: LoginFormProps) {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [showPassword, setShowPassword] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    onLogin(email, password)
+    setError(null)
+    setIsLoading(true)
+    
+    try {
+      await onLogin(email, password)
+    } catch (err: any) {
+      const errorMessage = err.message || "Error al iniciar sesión"
+      setError(errorMessage)
+      console.error("[v0] Login error:", err)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -36,6 +48,12 @@ export function LoginForm({ onLogin, onSwitchToRegister }: LoginFormProps) {
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
+            {error && (
+              <div className="bg-red-50 border border-red-200 rounded-md p-3">
+                <p className="text-red-800 text-sm">{error}</p>
+              </div>
+            )}
+
             <div className="space-y-2">
               <Label htmlFor="email">Correo Electrónico</Label>
               <div className="relative">
@@ -48,6 +66,7 @@ export function LoginForm({ onLogin, onSwitchToRegister }: LoginFormProps) {
                   onChange={(e) => setEmail(e.target.value)}
                   className="pl-10"
                   required
+                  disabled={isLoading}
                 />
               </div>
             </div>
@@ -64,6 +83,7 @@ export function LoginForm({ onLogin, onSwitchToRegister }: LoginFormProps) {
                   onChange={(e) => setPassword(e.target.value)}
                   className="pl-10 pr-10"
                   required
+                  disabled={isLoading}
                 />
                 <Button
                   type="button"
@@ -71,6 +91,7 @@ export function LoginForm({ onLogin, onSwitchToRegister }: LoginFormProps) {
                   size="sm"
                   className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
                   onClick={() => setShowPassword(!showPassword)}
+                  disabled={isLoading}
                 >
                   {showPassword ? (
                     <EyeOff className="h-4 w-4 text-gray-400" />
@@ -81,8 +102,19 @@ export function LoginForm({ onLogin, onSwitchToRegister }: LoginFormProps) {
               </div>
             </div>
 
-            <Button type="submit" className="w-full bg-[#00796B] hover:bg-[#004D40]">
-              Iniciar Sesión
+            <Button 
+              type="submit" 
+              className="w-full bg-[#00796B] hover:bg-[#004D40]"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Iniciando sesión...
+                </>
+              ) : (
+                "Iniciar Sesión"
+              )}
             </Button>
 
             <div className="text-center">
@@ -91,6 +123,7 @@ export function LoginForm({ onLogin, onSwitchToRegister }: LoginFormProps) {
                 variant="link"
                 onClick={onSwitchToRegister}
                 className="text-[#00796B] hover:text-[#004D40]"
+                disabled={isLoading}
               >
                 ¿No tienes cuenta? Regístrate aquí
               </Button>

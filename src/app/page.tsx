@@ -11,31 +11,50 @@ import { TreatmentTrackingWireframe } from "@/src/components/wireframes/treatmen
 import { AlertsWireframe } from "@/src/components/wireframes/alerts-wireframe"
 import { ConfigurationWireframe } from "@/src/components/wireframes/configuration-wireframe"
 import { NotificationsWireframe } from "@/src/components/wireframes/notifications-wireframe"
+import { useOnControlFirebase } from "@/src/hooks/use-oncontrol-firebase"
 
-export default function MedicalSystemPage() {
+export default function Page() {
   const [activeTab, setActiveTab] = useState("dashboard")
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [authMode, setAuthMode] = useState<"login" | "register">("login")
-  const [currentUser, setCurrentUser] = useState<any>(null)
 
-  const handleLogin = (email: string, password: string) => {
-    // Simulación de login - en producción conectar con API
-    console.log("[v0] Login attempt:", { email, password })
-    setCurrentUser({ email, name: "Dr. María González" })
-    setIsAuthenticated(true)
+  const firebase = useOnControlFirebase()
+
+  const handleLogin = async (email: string, password: string) => {
+    try {
+      await firebase.loginDoctor(email, password)
+    } catch (err) {
+      console.error("[v0] Login error:", err)
+      throw err
+    }
   }
 
-  const handleRegister = (userData: any) => {
-    // Simulación de registro - en producción conectar con API
-    console.log("[v0] Register attempt:", userData)
-    setCurrentUser({ email: userData.email, name: userData.name })
-    setIsAuthenticated(true)
+  const handleRegister = async (userData: any) => {
+    try {
+      await firebase.registerDoctor(userData.email, userData.password, {
+        name: userData.name,
+        email: userData.email,
+        specialty: userData.specialty,
+        license: userData.license,
+        phone: userData.phone,
+        dni: userData.dni,
+        ruc: userData.ruc,
+        documentType: userData.documentType as "dni" | "ruc",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      } as any)
+    } catch (err) {
+      console.error("[v0] Register error:", err)
+      throw err
+    }
   }
 
-  const handleLogout = () => {
-    setIsAuthenticated(false)
-    setCurrentUser(null)
-    setActiveTab("dashboard")
+  const handleLogout = async () => {
+    try {
+      await firebase.logoutDoctor()
+      setActiveTab("dashboard")
+    } catch (err) {
+      console.error("[v0] Logout error:", err)
+    }
   }
 
   const handleShowConfiguration = () => {
@@ -51,7 +70,6 @@ export default function MedicalSystemPage() {
   const handleViewPatient = (patientName: string) => {
     console.log("[v0] Navigating to patient:", patientName)
     setActiveTab("patients")
-    // In a real app, you would also set a patient ID or filter
   }
 
   const handleNavigateToAppointments = () => {
@@ -64,7 +82,20 @@ export default function MedicalSystemPage() {
     setActiveTab("alerts")
   }
 
-  if (!isAuthenticated) {
+  if (firebase.loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-[#00796B]/10 mb-4">
+            <div className="w-8 h-8 border-3 border-[#00796B] border-t-transparent rounded-full animate-spin" />
+          </div>
+          <p className="text-gray-600">Cargando aplicación...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (!firebase.isAuthenticated) {
     if (authMode === "login") {
       return <LoginForm onLogin={handleLogin} onSwitchToRegister={() => setAuthMode("register")} />
     } else {
@@ -104,7 +135,7 @@ export default function MedicalSystemPage() {
       <Header
         activeTab={activeTab}
         onTabChange={setActiveTab}
-        currentUser={currentUser}
+        currentUser={firebase.user ? { email: firebase.user.email, name: firebase.user.displayName } : null}
         onLogout={handleLogout}
         onShowConfiguration={handleShowConfiguration}
         onShowAllNotifications={handleShowAllNotifications}

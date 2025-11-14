@@ -5,9 +5,12 @@ import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'OnControl - Sistema Oncologico',
-  description: 'Created with OnControl',
+  title: 'OnControl - Sistema de Gestión Médica Oncológica',
+  description: 'Plataforma integral para la gestión de pacientes oncológicos, citas, tratamientos y alertas médicas.',
   generator: 'v0.app',
+  icons: {
+    icon: '/icon.svg',
+  },
 }
 
 export default function RootLayout({
@@ -16,8 +19,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
+    <html lang="es">
+      <body className={`font-sans antialiased ${GeistSans.variable} ${GeistMono.variable}`}>
         {children}
         <Analytics />
       </body>

@@ -6,7 +6,8 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start",
+    "seed": "ts-node scripts/seed-firebase.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -43,11 +44,13 @@
     "clsx": "^2.1.1",
     "cmdk": "1.0.4",
     "date-fns": "4.1.0",
+    "dotenv": "^17.2.3",
     "embla-carousel-react": "8.5.1",
+    "firebase": "12.6.0",
     "geist": "latest",
     "input-otp": "1.4.1",
     "lucide-react": "^0.454.0",
-    "next": "14.2.16",
+    "next": "^14.2.33",
     "next-themes": "latest",
     "react": "^18",
     "react-day-picker": "9.8.0",
@@ -63,11 +66,12 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.9",
-    "@types/node": "^22",
+    "@types/node": "^22.19.1",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "postcss": "^8.5",
     "tailwindcss": "^4.1.9",
+    "ts-node": "^10.9.2",
     "tw-animate-css": "1.3.3",
     "typescript": "^5"
   }

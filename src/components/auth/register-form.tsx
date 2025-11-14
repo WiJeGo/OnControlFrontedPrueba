@@ -1,17 +1,16 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/src/components/ui/card"
 import { Button } from "@/src/components/ui/button"
 import { Input } from "@/src/components/ui/input"
 import { Label } from "@/src/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/src/components/ui/select"
-import { Eye, EyeOff, Lock, Mail, User, FileText, CreditCard, Building } from "lucide-react"
+import { Eye, EyeOff, Lock, Mail, User, FileText, CreditCard, Building, Loader2 } from 'lucide-react'
 
 interface RegisterFormProps {
-  onRegister: (userData: any) => void
+  onRegister: (userData: any) => Promise<void>
   onSwitchToLogin: () => void
 }
 
@@ -26,18 +25,37 @@ export function RegisterForm({ onRegister, onSwitchToLogin }: RegisterFormProps)
     phone: "",
     dni: "",
     ruc: "",
-    documentType: "dni", // dni or ruc
+    documentType: "dni",
   })
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setError(null)
+    
     if (formData.password !== formData.confirmPassword) {
-      alert("Las contraseñas no coinciden")
+      setError("Las contraseñas no coinciden")
       return
     }
-    onRegister(formData)
+
+    if (!formData.specialty) {
+      setError("Selecciona una especialidad")
+      return
+    }
+
+    setIsLoading(true)
+    try {
+      await onRegister(formData)
+    } catch (err: any) {
+      const errorMessage = err.message || "Error al registrarse"
+      setError(errorMessage)
+      console.error("[v0] Register error:", err)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   const handleInputChange = (field: string, value: string) => {
@@ -46,16 +64,22 @@ export function RegisterForm({ onRegister, onSwitchToLogin }: RegisterFormProps)
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-      <Card className="w-full max-w-md">
+      <Card className="w-full max-w-md max-h-[90vh] overflow-y-auto">
         <CardHeader className="text-center">
           <div className="mx-auto w-20 h-20 mb-4 flex items-center justify-center">
-              <img src="/logoOnControl.png" alt="OnControl Logo" className="h-16 w-auto" />
+            <img src="/logoOnControl.png" alt="OnControl Logo" className="h-16 w-auto" />
           </div>
           <CardTitle className="text-2xl font-bold text-[#00796B]">OnControl</CardTitle>
           <p className="text-gray-600">Registro de Oncólogo</p>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
+            {error && (
+              <div className="bg-red-50 border border-red-200 rounded-md p-3">
+                <p className="text-red-800 text-sm">{error}</p>
+              </div>
+            )}
+
             <div className="space-y-2">
               <Label htmlFor="name">Nombre Completo</Label>
               <div className="relative">
@@ -68,6 +92,7 @@ export function RegisterForm({ onRegister, onSwitchToLogin }: RegisterFormProps)
                   onChange={(e) => handleInputChange("name", e.target.value)}
                   className="pl-10"
                   required
+                  disabled={isLoading}
                 />
               </div>
             </div>
@@ -84,13 +109,18 @@ export function RegisterForm({ onRegister, onSwitchToLogin }: RegisterFormProps)
                   onChange={(e) => handleInputChange("email", e.target.value)}
                   className="pl-10"
                   required
+                  disabled={isLoading}
                 />
               </div>
             </div>
 
             <div className="space-y-2">
               <Label>Tipo de Documento</Label>
-              <Select onValueChange={(value) => handleInputChange("documentType", value)} defaultValue="dni">
+              <Select 
+                onValueChange={(value) => handleInputChange("documentType", value)} 
+                defaultValue="dni"
+                disabled={isLoading}
+              >
                 <SelectTrigger>
                   <SelectValue placeholder="Selecciona tipo de documento" />
                 </SelectTrigger>
@@ -114,6 +144,7 @@ export function RegisterForm({ onRegister, onSwitchToLogin }: RegisterFormProps)
                     onChange={(e) => handleInputChange("dni", e.target.value)}
                     className="pl-10"
                     required
+                    disabled={isLoading}
                   />
                 </div>
               </div>
@@ -130,6 +161,7 @@ export function RegisterForm({ onRegister, onSwitchToLogin }: RegisterFormProps)
                     onChange={(e) => handleInputChange("ruc", e.target.value)}
                     className="pl-10"
                     required
+                    disabled={isLoading}
                   />
                 </div>
               </div>
@@ -137,7 +169,10 @@ export function RegisterForm({ onRegister, onSwitchToLogin }: RegisterFormProps)
 
             <div className="space-y-2">
               <Label htmlFor="specialty">Especialidad Oncológica</Label>
-              <Select onValueChange={(value) => handleInputChange("specialty", value)}>
+              <Select 
+                onValueChange={(value) => handleInputChange("specialty", value)}
+                disabled={isLoading}
+              >
                 <SelectTrigger>
                   <SelectValue placeholder="Selecciona tu especialidad" />
                 </SelectTrigger>
@@ -166,6 +201,7 @@ export function RegisterForm({ onRegister, onSwitchToLogin }: RegisterFormProps)
                   onChange={(e) => handleInputChange("license", e.target.value)}
                   className="pl-10"
                   required
+                  disabled={isLoading}
                 />
               </div>
             </div>
@@ -182,6 +218,7 @@ export function RegisterForm({ onRegister, onSwitchToLogin }: RegisterFormProps)
                   onChange={(e) => handleInputChange("phone", e.target.value)}
                   className="pl-10"
                   required
+                  disabled={isLoading}
                 />
               </div>
             </div>
@@ -198,6 +235,7 @@ export function RegisterForm({ onRegister, onSwitchToLogin }: RegisterFormProps)
                   onChange={(e) => handleInputChange("password", e.target.value)}
                   className="pl-10 pr-10"
                   required
+                  disabled={isLoading}
                 />
                 <Button
                   type="button"
@@ -205,6 +243,7 @@ export function RegisterForm({ onRegister, onSwitchToLogin }: RegisterFormProps)
                   size="sm"
                   className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
                   onClick={() => setShowPassword(!showPassword)}
+                  disabled={isLoading}
                 >
                   {showPassword ? (
                     <EyeOff className="h-4 w-4 text-gray-400" />
@@ -227,6 +266,7 @@ export function RegisterForm({ onRegister, onSwitchToLogin }: RegisterFormProps)
                   onChange={(e) => handleInputChange("confirmPassword", e.target.value)}
                   className="pl-10 pr-10"
                   required
+                  disabled={isLoading}
                 />
                 <Button
                   type="button"
@@ -234,6 +274,7 @@ export function RegisterForm({ onRegister, onSwitchToLogin }: RegisterFormProps)
                   size="sm"
                   className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  disabled={isLoading}
                 >
                   {showConfirmPassword ? (
                     <EyeOff className="h-4 w-4 text-gray-400" />
@@ -244,8 +285,19 @@ export function RegisterForm({ onRegister, onSwitchToLogin }: RegisterFormProps)
               </div>
             </div>
 
-            <Button type="submit" className="w-full bg-[#00796B] hover:bg-[#004D40]">
-              Registrarse
+            <Button 
+              type="submit" 
+              className="w-full bg-[#00796B] hover:bg-[#004D40]"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Registrando...
+                </>
+              ) : (
+                "Registrarse"
+              )}
             </Button>
 
             <div className="text-center">
@@ -254,6 +306,7 @@ export function RegisterForm({ onRegister, onSwitchToLogin }: RegisterFormProps)
                 variant="link"
                 onClick={onSwitchToLogin}
                 className="text-[#00796B] hover:text-[#004D40]"
+                disabled={isLoading}
               >
                 ¿Ya tienes cuenta? Inicia sesión aquí
               </Button>
